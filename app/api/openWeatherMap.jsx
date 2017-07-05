@@ -4,13 +4,13 @@ var axios = require( 'axios' );
 const API_KEY = 'bb23a44fb984187e642a9707fa936b4b';
 const UNITS = 'imperial';
 
-const OPEN_WEATHER_MAP_URL = 'http://api.openweathermap.org/data/2.5/weather?appid='+API_KEY+'&units='+UNITS;
+const OPEN_WEATHER_MAP_URL = 'http://api.openweathermap.org/data/2.5/weather?appid='+API_KEY;
 
 module.exports = {
-  getTemp: function( location ) {
+  getTemp: function( location, unit ) {
 
     var encodedLocation = encodeURIComponent( location );
-    var requestURL = `${OPEN_WEATHER_MAP_URL}&q=${encodedLocation}`;
+    var requestURL = `${OPEN_WEATHER_MAP_URL}&q=${encodedLocation}&units=${unit}`;
 
     // debugger;
 

@@ -1,8 +1,12 @@
 var React = require('react');
 var WeatherForm = require('WeatherForm');
 var WeatherMessage = require('WeatherMessage');
+var WeatherTemperature = require('WeatherTemperature');
 var WeatherError = require('WeatherError');
 var openWeatherMap = require( 'openWeatherMap' );
+
+const TEMP_C = 'C';
+const TEMP_F = 'F';
 
 var Weather = React.createClass({
   getInitialState: function() {
@@ -11,24 +15,32 @@ var Weather = React.createClass({
       temp: 0,
       isLoading: false,
       message: '',
-      units: '&#8457;'
+      unit: TEMP_F
     };
   },
-  handleSearch: function( location ) {
+  handleSearch: function( options ) {
       var that = this;
+      var unit = 'imperial';
+      console.log( 'success', options );
 
-      console.log( 'success', location );
-
+      this.setState(options);
       this.setState({ isLoading: true });
 
-      openWeatherMap.getTemp( location )
+      if( typeof options.unit === "string" && options.unit == 'F' ) {
+        unit = 'imperial';
+      } else if(  typeof options.unit === "string" && options.unit == 'C' ) {
+        unit = 'metric';
+      }
+
+      openWeatherMap.getTemp( options.location, unit )
       .then( function(temp) {
         // debugger;
         that.setState({
-          location: location,
+          location: options.location,
           temp: temp,
           isLoading: false,
           message: '',
+          unit: options.unit
         });
       })
       .catch( function(error) {
@@ -38,6 +50,7 @@ var Weather = React.createClass({
           temp: 0,
           isLoading: false,
           message: error.message,
+          unit: options.unit
         });
 
         console.log('Error', error);
@@ -45,7 +58,7 @@ var Weather = React.createClass({
 
   },
   render: function() {
-    var {isLoading, temp, location, message, units} = this.state;
+    var {isLoading, temp, location, message, unit} = this.state;
 
     function renderMessage() {
       if ( isLoading ) {
@@ -54,7 +67,7 @@ var Weather = React.createClass({
         );
       } else if ( temp && location ) {
         return (
-          <WeatherMessage temp={temp} location={location} units={units} />
+          <WeatherMessage temp={temp} location={location} unit={unit} />
         );
       }
     }
