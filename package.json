@@ -4,12 +4,14 @@
   "description": "Boilerplate react app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "Frank Decker",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.16.2",
+    "bundle": "^0.2.3",
     "es6-promise": "^4.1.1",
     "express": "^4.15.3",
     "react": "^0.14.7",
