@@ -21,7 +21,7 @@ var WeatherForm = React.createClass({
           </div>
 
           <div>
-            <button>Get Weather</button>
+            <button className="button hollow expanded">Get Weather</button>
           </div>
 
         </form>
