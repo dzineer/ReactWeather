@@ -10,7 +10,8 @@ var Weather = React.createClass({
       location: '',
       temp: 0,
       isLoading: false,
-      message: ''
+      message: '',
+      units: '&#8457;'
     };
   },
   handleSearch: function( location ) {
@@ -44,7 +45,7 @@ var Weather = React.createClass({
 
   },
   render: function() {
-    var {isLoading, temp, location, message} = this.state;
+    var {isLoading, temp, location, message, units} = this.state;
 
     function renderMessage() {
       if ( isLoading ) {
@@ -53,7 +54,7 @@ var Weather = React.createClass({
         );
       } else if ( temp && location ) {
         return (
-          <WeatherMessage temp={temp} location={location} />
+          <WeatherMessage temp={temp} location={location} units={units} />
         );
       }
     }
